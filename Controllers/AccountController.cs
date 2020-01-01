@@ -62,6 +62,8 @@ namespace acb_app.Controllers
                 var tokenString = tokenHandler.WriteToken(token);
                 return Ok(new
                 {
+                    username = entity.Username,
+                    email = "xxx@gmail.com",
                     token = tokenString,
                     expiration = token.ValidTo
                 }) ;

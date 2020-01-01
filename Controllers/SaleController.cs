@@ -28,6 +28,7 @@ namespace acb_app.Controllers
         {
             try
             {
+               // var product = _unitOfWork.
                 _SaleService.Add(Sale);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)

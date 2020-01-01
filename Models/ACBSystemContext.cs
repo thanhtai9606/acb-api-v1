@@ -94,8 +94,8 @@ namespace acb_app.Models
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_vietnamese_ci");
 
-                entity.Property(e => e.Quantity)
-                    .HasColumnName("quantity")
+                entity.Property(e => e.Inventory)
+                    .HasColumnName("inventory")
                     .HasColumnType("smallint(6)");
 
                 entity.Property(e => e.Warranty)
@@ -143,6 +143,10 @@ namespace acb_app.Models
                 entity.Property(e => e.WarrantyEnd)
                     .HasColumnName("warranty_end")
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasColumnType("smallint(6)");
 
                 entity.Property(e => e.WarrantyStart)
                     .HasColumnName("warranty_start")

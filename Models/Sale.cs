@@ -10,6 +10,8 @@ namespace acb_app.Models
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public DateTime WarrantyStart { get; set; }
+        public int Quantity {set;get;}
+
         public DateTime WarrantyEnd { get; set; }
         public DateTime ModifiedDate { get; set; }
         public string CreateBy { get; set; }
@@ -17,7 +19,7 @@ namespace acb_app.Models
         [NotMapped]
         public virtual ICollection<Product> Products { set; get; }
         [NotMapped]
-        public virtual ICollection<Customer> Customers { set; get; }
+        public virtual Customer Customer { set; get; }
 
     }
 }

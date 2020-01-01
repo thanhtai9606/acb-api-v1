@@ -27,7 +27,7 @@ namespace acb_app.Controllers
         public async Task<IActionResult> AddProduct(Product Product)
         {
             try
-            {
+            {                
                 _ProductService.Add(Product);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
