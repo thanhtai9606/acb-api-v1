@@ -128,6 +128,34 @@ namespace acb_app.Controllers
             return Ok(result);
         }
 
+        [HttpGet, Route("GetProducts")]
+        public IActionResult GetProducts()
+        {            
+            var product = _ProductService.Queryable().ToList();
+            var result = from p in product                        
+                         select new
+                         {
+                             id = p.ProductId.ToString(),
+                             text = p.ProductName                            
+                         };
+
+            
+            return Ok(result);
+        }
+        [HttpGet, Route("GetCustomers")]
+        public IActionResult GetCustomers()
+        {            
+            var customer = _CustomerService.Queryable().ToList();
+            var result = from c in customer                        
+                         select new
+                         {
+                             id = c.CustomerId.ToString(),
+                             text = c.CustomerName                            
+                         };
+
+            
+            return Ok(result);
+        }
 
     }
 }
