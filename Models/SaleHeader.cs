@@ -4,20 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace acb_app.Models
 {
-    public partial class Sale
+    public partial class SaleHeader
     {
         public int SoId { get; set; }
-        public int CustomerId { get; set; }
-        public int ProductId { get; set; }
-        public DateTime WarrantyStart { get; set; }
-        public int Quantity {set;get;}
-
-        public DateTime WarrantyEnd { get; set; }
+        public int CustomerId { get; set; }      
         public DateTime ModifiedDate { get; set; }
         public string CreateBy { get; set; }
 
-        [NotMapped]
-        public virtual ICollection<Product> Products { set; get; }
+        public int TotalLine {set;get;}
         [NotMapped]
         public virtual Customer Customer { set; get; }
 

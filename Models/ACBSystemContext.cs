@@ -14,7 +14,7 @@ namespace acb_app.Models
 
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Sale> Sale { get; set; }
+       // public virtual DbSet<Sale> Sale { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -103,55 +103,55 @@ namespace acb_app.Models
                     .HasColumnType("int(11)");
             });
 
-            modelBuilder.Entity<Sale>(entity =>
-            {
-                entity.HasKey(e => e.SoId)
-                    .HasName("PRIMARY");
+            // modelBuilder.Entity<Sale>(entity =>
+            // {
+            //     entity.HasKey(e => e.SoId)
+            //         .HasName("PRIMARY");
 
-                entity.ToTable("sale");
+            //     entity.ToTable("sale");
 
-                entity.HasIndex(e => e.CustomerId)
-                    .HasName("customer_id");
+            //     entity.HasIndex(e => e.CustomerId)
+            //         .HasName("customer_id");
 
-                entity.HasIndex(e => e.ProductId)
-                    .HasName("product_id");
+            //     entity.HasIndex(e => e.ProductId)
+            //         .HasName("product_id");
 
-                entity.Property(e => e.SoId)
-                    .HasColumnName("so_id")
-                    .HasColumnType("int(11)");
+            //     entity.Property(e => e.SoId)
+            //         .HasColumnName("so_id")
+            //         .HasColumnType("int(11)");
 
-                entity.Property(e => e.CreateBy)
-                    .IsRequired()
-                    .HasColumnName("create_by")
-                    .HasColumnType("varchar(20)")
-                    .HasCharSet("utf8mb4")
-                    .HasCollation("utf8mb4_vietnamese_ci");
+            //     entity.Property(e => e.CreateBy)
+            //         .IsRequired()
+            //         .HasColumnName("create_by")
+            //         .HasColumnType("varchar(20)")
+            //         .HasCharSet("utf8mb4")
+            //         .HasCollation("utf8mb4_vietnamese_ci");
 
-                entity.Property(e => e.CustomerId)
-                    .HasColumnName("customer_id")
-                    .HasColumnType("int(11)");
+            //     entity.Property(e => e.CustomerId)
+            //         .HasColumnName("customer_id")
+            //         .HasColumnType("int(11)");
 
-                entity.Property(e => e.ModifiedDate)
-                    .HasColumnName("modified_date")
-                    .HasColumnType("timestamp")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            //     entity.Property(e => e.ModifiedDate)
+            //         .HasColumnName("modified_date")
+            //         .HasColumnType("timestamp")
+            //         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.ProductId)
-                    .HasColumnName("product_id")
-                    .HasColumnType("int(11)");
+            //     entity.Property(e => e.ProductId)
+            //         .HasColumnName("product_id")
+            //         .HasColumnType("int(11)");
 
-                entity.Property(e => e.WarrantyEnd)
-                    .HasColumnName("warranty_end")
-                    .HasColumnType("datetime");
+            //     entity.Property(e => e.WarrantyEnd)
+            //         .HasColumnName("warranty_end")
+            //         .HasColumnType("datetime");
 
-                entity.Property(e => e.Quantity)
-                    .HasColumnName("quantity")
-                    .HasColumnType("smallint(6)");
+            //     entity.Property(e => e.Quantity)
+            //         .HasColumnName("quantity")
+            //         .HasColumnType("smallint(6)");
 
-                entity.Property(e => e.WarrantyStart)
-                    .HasColumnName("warranty_start")
-                    .HasColumnType("datetime");
-            });
+            //     entity.Property(e => e.WarrantyStart)
+            //         .HasColumnName("warranty_start")
+            //         .HasColumnType("datetime");
+            // });
 
             OnModelCreatingPartial(modelBuilder);
         }
