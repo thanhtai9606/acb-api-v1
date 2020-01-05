@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace acb_app.Controllers
 {
+   // [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize(AuthenticationSchemes = "Bearer")] // waring have to use this
@@ -23,12 +24,12 @@ namespace acb_app.Controllers
             _unitOfWork = unitOfWork;
           
         }
-        [HttpPost, Route("AddCustomer")]
-        public async Task<IActionResult> AddCustomer(Customer Customer)
+        [HttpPost,Route("addCustomer")]
+        public async Task<IActionResult> AddCustomer([FromBody] Customer entity)
         {
             try
             {
-                _CustomerService.Add(Customer);
+                _CustomerService.Add(entity);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
                 {
@@ -46,12 +47,12 @@ namespace acb_app.Controllers
             }
             return Ok(operationResult);
         }
-        [HttpPost, Route("UpdateCustomer")]
-        public async Task<IActionResult> UpdateCustomer(Customer Customer)
+        [HttpPut, Route("UpdateCustomer")]
+        public async Task<IActionResult> UpdateCustomer([FromBody] Customer entity)
         {
             try
             {
-                _CustomerService.Update(Customer);
+                _CustomerService.Update(entity);
                 int res =  await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
                 {
@@ -70,7 +71,7 @@ namespace acb_app.Controllers
             return Ok(operationResult);
         }
         
-        [HttpDelete, Route("DeleteCustomer")]
+        [HttpDelete, Route("DeleteCustomer/{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             try

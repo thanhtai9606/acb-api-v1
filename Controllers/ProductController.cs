@@ -46,7 +46,7 @@ namespace acb_app.Controllers
             }
             return Ok(operationResult);
         }
-        [HttpPost, Route("UpdateProduct")]
+        [HttpPut, Route("UpdateProduct")]
         public async Task<IActionResult> UpdateProduct(Product Product)
         {
             try
@@ -70,7 +70,7 @@ namespace acb_app.Controllers
             return Ok(operationResult);
         }
         
-        [HttpDelete, Route("DeleteProduct")]
+        [HttpDelete, Route("DeleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try

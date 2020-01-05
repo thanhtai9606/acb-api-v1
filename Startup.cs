@@ -15,6 +15,9 @@ using Microsoft.IdentityModel.Tokens;
 using acb_app.Models;
 using BecamexIDC.Pattern.EF.Repositories;
 using BecamexIDC.Pattern.EF.DataContext;
+using acb_app.Options;
+using System.Text.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace acb_app
 {
@@ -98,7 +101,12 @@ namespace acb_app
                     ValidateAudience = false
                 };
             });
-            services.AddControllers();
+        
+            services.AddControllers().AddJsonOptions( options =>{
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,11 +118,12 @@ namespace acb_app
             }
 
             app.UseHttpsRedirection();
+            //app.UseCors("CorsPolicy");
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthorization();
-
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
