@@ -16,6 +16,7 @@ namespace acb_app.Controllers
     public class SaleController : ControllerBase
     {
         private readonly ISaleHeaderService _SaleHeaderService;
+        private readonly ISaleDetailService _SaleDetailService;
         private readonly ICustomerService _CustomerService;
         private readonly IProductService _ProductService;
         private readonly IUnitOfWorkAsync _unitOfWork;
@@ -23,9 +24,11 @@ namespace acb_app.Controllers
         public SaleController(ISaleHeaderService SaleHeaderService, 
                                 ICustomerService customerService,
                                 IProductService productService,
+                                ISaleDetailService saleDetailService,
                               IUnitOfWorkAsync unitOfWork)
         {
             _SaleHeaderService = SaleHeaderService;
+            _SaleDetailService = saleDetailService;
             _unitOfWork = unitOfWork;
             _CustomerService = customerService;
             _ProductService = productService;
@@ -105,27 +108,42 @@ namespace acb_app.Controllers
         [HttpGet, Route("GetSale")]
         public IActionResult GetSale()
         {
-            var sale = _SaleHeaderService.Queryable().ToList();
+            var sale_header = _SaleHeaderService.Queryable().ToList();
             var customer = _CustomerService.Queryable().ToList();
             var product = _ProductService.Queryable().ToList();
 
-            // var result = from s in sale
-            //              join c in customer on s.CustomerId equals c.CustomerId
-            //              join p in product on s.ProductId  equals p.ProductId
-            //              select new
-            //              {
-            //                  s.SoId,
-            //                  c.CustomerName,
-            //                  c.Phone,
-            //                  p.ProductName,
-            //                  p.Model,
-            //                  p.Warranty,
-            //                  s.Quantity,
-            //                  s.WarrantyStart,
-            //                  s.WarrantyEnd,
-            //                  s.ModifiedDate
-            //              };
-            return Ok(null);
+            var result = from s in sale_header
+                         join c in customer on s.CustomerId equals c.CustomerId
+                         select new
+                         {
+                             s.SoId,
+                             c.CustomerName,
+                             c.Phone,       
+                             s.TotalLine,                     
+                             s.ModifiedDate
+                         };
+            return Ok(result);
+        }
+
+        [HttpGet, Route("GetSaleById")]
+        public IActionResult GetSaleById(int soId)
+        {
+            var sale_detail = _SaleDetailService.Queryable().ToList();
+            var product = _ProductService.Queryable().ToList();
+
+            var result = from s in sale_detail
+                         join p in product on s.ProductId equals p.ProductId
+                         where s.SoId == soId
+                         select new
+                         {
+                             s.SoId,
+                             p.ProductName,
+                             s.TotalAmount,
+                             p.Warranty,    
+                             s.WarrantyStart,
+                             s.WarrantyEnd,   
+                         };
+            return Ok(result);
         }
 
         [HttpGet, Route("GetProducts")]
@@ -135,7 +153,7 @@ namespace acb_app.Controllers
             var result = from p in product                        
                          select new
                          {
-                             id = p.ProductId.ToString(),
+                             id = p.ProductId,
                              text = p.ProductName                            
                          };
 
@@ -149,7 +167,7 @@ namespace acb_app.Controllers
             var result = from c in customer                        
                          select new
                          {
-                             id = c.CustomerId.ToString(),
+                             id = c.CustomerId,
                              text = c.CustomerName                            
                          };
 

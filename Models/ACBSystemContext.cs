@@ -134,7 +134,7 @@ namespace acb_app.Models
                     .HasColumnType("date");
 
                 entity.HasOne(d => d.So)
-                    .WithMany(p => p.SaleDetail)
+                    .WithMany(p => p.SaleDetails)
                     .HasForeignKey(d => d.SoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("sale_detail_ibfk_1");

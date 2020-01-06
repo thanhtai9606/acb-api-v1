@@ -7,7 +7,7 @@ namespace acb_app.Models
     {
         public SaleHeader()
         {
-            SaleDetail = new HashSet<SaleDetail>();
+            SaleDetails = new HashSet<SaleDetail>();
         }
 
         public int SoId { get; set; }
@@ -16,6 +16,6 @@ namespace acb_app.Models
         public string CreateBy { get; set; }
         public DateTime ModifiedDate { get; set; }
 
-        public virtual ICollection<SaleDetail> SaleDetail { get; set; }
+        public virtual ICollection<SaleDetail> SaleDetails { get; set; }
     }
 }
