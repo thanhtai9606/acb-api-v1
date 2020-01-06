@@ -52,11 +52,13 @@ namespace acb_app
             
             services.AddScoped<IRepositoryAsync<Product>, Repository<Product>>();    
             services.AddScoped<IRepositoryAsync<Customer>, Repository<Customer>>();  
-           // services.AddScoped<IRepositoryAsync<Sale>, Repository<Sale>>();  
+            services.AddScoped<IRepositoryAsync<SaleHeader>, Repository<SaleHeader>>();  
+            services.AddScoped<IRepositoryAsync<SaleDetail>, Repository<SaleDetail>>();  
 
             services.AddScoped<ICustomerService, CustomerService>();    
             services.AddScoped<IProductService, ProductService>();    
-           // services.AddScoped<ISaleService, SaleService>();    
+            services.AddScoped<ISaleHeaderService, SaleHeaderService>();
+            services.AddScoped<ISaleDetailService, SaleDetailService>();    
             var identitySettings = identitySettingSection.Get<AppIdentitySettings>();
             #endregion 
             // configure jwt authentication

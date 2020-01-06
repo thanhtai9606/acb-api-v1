@@ -15,29 +15,29 @@ namespace acb_app.Controllers
     //[Authorize] This is not working
     public class SaleController : ControllerBase
     {
-        private readonly ISaleService _SaleService;
+        private readonly ISaleHeaderService _SaleHeaderService;
         private readonly ICustomerService _CustomerService;
         private readonly IProductService _ProductService;
         private readonly IUnitOfWorkAsync _unitOfWork;
         private OperationResult operationResult = new OperationResult();
-        public SaleController(ISaleService SaleService, 
+        public SaleController(ISaleHeaderService SaleHeaderService, 
                                 ICustomerService customerService,
                                 IProductService productService,
                               IUnitOfWorkAsync unitOfWork)
         {
-            _SaleService = SaleService;
+            _SaleHeaderService = SaleHeaderService;
             _unitOfWork = unitOfWork;
             _CustomerService = customerService;
             _ProductService = productService;
           
         }
         [HttpPost, Route("AddSale")]
-        public async Task<IActionResult> AddSale(Sale Sale)
+        public async Task<IActionResult> AddSale(SaleHeader Sale)
         {
             try
             {
                // var product = _unitOfWork.
-                _SaleService.Add(Sale);
+                _SaleHeaderService.Add(Sale);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
                 {
@@ -56,11 +56,11 @@ namespace acb_app.Controllers
             return Ok(operationResult);
         }
         [HttpPut, Route("UpdateSale")]
-        public async Task<IActionResult> UpdateSale(Sale Sale)
+        public async Task<IActionResult> UpdateSale(SaleHeader Sale)
         {
             try
             {
-                _SaleService.Update(Sale);
+                _SaleHeaderService.Update(Sale);
                 int res =  await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
                 {
@@ -84,7 +84,7 @@ namespace acb_app.Controllers
         {
             try
             {
-                _SaleService.Delete(id);
+                _SaleHeaderService.Delete(id);
                int res =  await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
                 {
@@ -105,27 +105,27 @@ namespace acb_app.Controllers
         [HttpGet, Route("GetSale")]
         public IActionResult GetSale()
         {
-            var sale = _SaleService.Queryable().ToList();
+            var sale = _SaleHeaderService.Queryable().ToList();
             var customer = _CustomerService.Queryable().ToList();
             var product = _ProductService.Queryable().ToList();
 
-            var result = from s in sale
-                         join c in customer on s.CustomerId equals c.CustomerId
-                         join p in product on s.ProductId  equals p.ProductId
-                         select new
-                         {
-                             s.SoId,
-                             c.CustomerName,
-                             c.Phone,
-                             p.ProductName,
-                             p.Model,
-                             p.Warranty,
-                             s.Quantity,
-                             s.WarrantyStart,
-                             s.WarrantyEnd,
-                             s.ModifiedDate
-                         };
-            return Ok(result);
+            // var result = from s in sale
+            //              join c in customer on s.CustomerId equals c.CustomerId
+            //              join p in product on s.ProductId  equals p.ProductId
+            //              select new
+            //              {
+            //                  s.SoId,
+            //                  c.CustomerName,
+            //                  c.Phone,
+            //                  p.ProductName,
+            //                  p.Model,
+            //                  p.Warranty,
+            //                  s.Quantity,
+            //                  s.WarrantyStart,
+            //                  s.WarrantyEnd,
+            //                  s.ModifiedDate
+            //              };
+            return Ok(null);
         }
 
         [HttpGet, Route("GetProducts")]

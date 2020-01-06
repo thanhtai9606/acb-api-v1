@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace acb_app.Models
 {
     public partial class SaleHeader
     {
+        public SaleHeader()
+        {
+            SaleDetail = new HashSet<SaleDetail>();
+        }
+
         public int SoId { get; set; }
-        public int CustomerId { get; set; }      
-        public DateTime ModifiedDate { get; set; }
+        public int CustomerId { get; set; }
+        public int TotalLine { get; set; }
         public string CreateBy { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
-        public int TotalLine {set;get;}
-        [NotMapped]
-        public virtual Customer Customer { set; get; }
-
+        public virtual ICollection<SaleDetail> SaleDetail { get; set; }
     }
 }
