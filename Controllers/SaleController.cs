@@ -39,7 +39,9 @@ namespace acb_app.Controllers
         {
             try
             {
-               // var product = _unitOfWork.
+                var sale_detail =  Sale.SaleDetails.ToList();
+                var totalLine = sale_detail.Sum(x=>x.TotalAmount);//from s in sale_detail.Select(x=>x.TotalAmount).Sum();
+                Sale.TotalLine = totalLine ==0 ? 0: totalLine;
                 _SaleHeaderService.Add(Sale);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)

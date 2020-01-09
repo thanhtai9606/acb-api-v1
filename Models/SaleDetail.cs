@@ -9,6 +9,8 @@ namespace acb_app.Models
         public int SoId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        public int Price {set;get;}
+
         public int? TotalAmount { get; set; }
         public DateTime WarrantyStart { get; set; }
         public DateTime WarrantyEnd { get; set; }

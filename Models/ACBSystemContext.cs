@@ -117,6 +117,10 @@ namespace acb_app.Models
                     .HasColumnName("quantity")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Price)
+                    .HasColumnName("price")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.SoId)
                     .HasColumnName("so_id")
                     .HasColumnType("int(11)");
