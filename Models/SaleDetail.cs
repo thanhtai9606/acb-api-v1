@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace acb_app.Models
 {
@@ -16,5 +17,8 @@ namespace acb_app.Models
         public DateTime WarrantyEnd { get; set; }
 
         public virtual SaleHeader So { get; set; }
+
+        [NotMapped]
+        public virtual Product Product {set;get;}
     }
 }

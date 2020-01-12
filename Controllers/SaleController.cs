@@ -1,4 +1,5 @@
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using acb_app.Models;
@@ -42,6 +43,11 @@ namespace acb_app.Controllers
                 var sale_detail =  Sale.SaleDetails.ToList();
                 var totalLine = sale_detail.Sum(x=>x.TotalAmount);//from s in sale_detail.Select(x=>x.TotalAmount).Sum();
                 Sale.TotalLine = totalLine ==0 ? 0: totalLine;
+                foreach(var sd in sale_detail){
+                    var p = _ProductService.Find(sd.ProductId);
+                    sd.WarrantyStart = DateTime.Now;
+                    sd.WarrantyEnd = DateTime.Now.AddMonths(p.Warranty);
+                }
                 _SaleHeaderService.Add(Sale);
                 int res = await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
@@ -84,11 +90,11 @@ namespace acb_app.Controllers
             return Ok(operationResult);
         }
         
-        [HttpDelete, Route("DeleteSale")]
+        [HttpDelete, Route("DeleteSale/{id}")]
         public async Task<IActionResult> DeleteSale(int id)
         {
             try
-            {
+            { 
                 _SaleHeaderService.Delete(id);
                int res =  await _unitOfWork.SaveChangesAsync();
                 if (res > 0)
@@ -160,7 +166,7 @@ namespace acb_app.Controllers
                          };
 
             
-            return Ok(result);
+            return Ok(product);
         }
         [HttpGet, Route("GetCustomers")]
         public IActionResult GetCustomers()
@@ -174,7 +180,7 @@ namespace acb_app.Controllers
                          };
 
             
-            return Ok(result);
+            return Ok(customer);
         }
 
     }
