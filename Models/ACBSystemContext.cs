@@ -7,7 +7,6 @@ namespace acb_app.Models
 {
     public partial class ACBSystemContext : DataContext
     {
-   
         public ACBSystemContext(DbContextOptions<ACBSystemContext> options)
             : base(options)
         {
@@ -22,6 +21,7 @@ namespace acb_app.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+
             }
         }
 
@@ -103,10 +103,14 @@ namespace acb_app.Models
                 entity.ToTable("sale_detail");
 
                 entity.HasIndex(e => e.SoId)
-                    .HasName("so_id");
+                    .HasName("sale_detail_ibfk_1");
 
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Price)
+                    .HasColumnName("price")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.ProductId)
@@ -115,10 +119,6 @@ namespace acb_app.Models
 
                 entity.Property(e => e.Quantity)
                     .HasColumnName("quantity")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.Price)
-                    .HasColumnName("price")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.SoId)
@@ -140,7 +140,6 @@ namespace acb_app.Models
                 entity.HasOne(d => d.So)
                     .WithMany(p => p.SaleDetails)
                     .HasForeignKey(d => d.SoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("sale_detail_ibfk_1");
             });
 
@@ -166,10 +165,18 @@ namespace acb_app.Models
                     .HasColumnName("customer_id")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Discount).HasColumnName("discount");
+
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnName("modified_date")
                     .HasColumnType("timestamp")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                entity.Property(e => e.SubTotal)
+                    .HasColumnName("sub_total")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Tax).HasColumnName("tax");
 
                 entity.Property(e => e.TotalLine)
                     .HasColumnName("total_line")

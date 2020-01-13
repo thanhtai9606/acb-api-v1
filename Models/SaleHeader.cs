@@ -13,6 +13,9 @@ namespace acb_app.Models
         public int SoId { get; set; }
         public int CustomerId { get; set; }
         public int? TotalLine { get; set; }
+        public int SubTotal { get; set; }
+        public double Discount { get; set; }
+        public double Tax { get; set; }
         public string CreateBy { get; set; }
         public DateTime ModifiedDate { get; set; }
 

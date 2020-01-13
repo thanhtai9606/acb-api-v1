@@ -100,6 +100,12 @@ namespace acb_app.Controllers
             return Ok(_CustomerService.Queryable());
         }
 
+        [HttpGet, Route("GetCustomerById")]
+        public IActionResult GetCustomerById(int id)
+        {
+            return Ok(_CustomerService.FindBy(x=>x.CustomerId == id));
+        }
+
 
     }
 }

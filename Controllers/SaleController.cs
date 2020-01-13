@@ -154,6 +154,13 @@ namespace acb_app.Controllers
             return Ok(result);
         }
 
+        [HttpGet, Route("GetSaleHeaderById")]
+        public IActionResult GetSaleHeaderById(int soId)
+        {           
+            return Ok(_SaleHeaderService.FindBy(x=>x.SoId == soId));
+        }
+
+
         [HttpGet, Route("GetProducts")]
         public IActionResult GetProducts()
         {            
