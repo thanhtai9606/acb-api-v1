@@ -41,8 +41,8 @@ namespace acb_app.Controllers
             try
             {
                 var sale_detail =  Sale.SaleDetails.ToList();
-                var totalLine = sale_detail.Sum(x=>x.TotalAmount);//from s in sale_detail.Select(x=>x.TotalAmount).Sum();
-                Sale.TotalLine = totalLine ==0 ? 0: totalLine;
+               // var totalLine = sale_detail.Sum(x=>x.TotalAmount);//from s in sale_detail.Select(x=>x.TotalAmount).Sum();
+               // Sale.TotalLine = totalLine == 0 ? 0: totalLine;
                 foreach(var sd in sale_detail){
                     var p = _ProductService.Find(sd.ProductId);
                     sd.WarrantyStart = DateTime.Now;
