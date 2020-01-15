@@ -7,6 +7,7 @@ namespace acb_app.Models
 {
     public partial class ACBSystemContext : DataContext
     {
+
         public ACBSystemContext(DbContextOptions<ACBSystemContext> options)
             : base(options)
         {
@@ -21,7 +22,8 @@ namespace acb_app.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+              
             }
         }
 
@@ -86,12 +88,20 @@ namespace acb_app.Models
                     .HasColumnType("timestamp")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                entity.Property(e => e.OrderPrice)
+                    .HasColumnName("order_price")
+                    .HasColumnType("int(11)");
+
                 entity.Property(e => e.ProductName)
                     .IsRequired()
                     .HasColumnName("product_name")
                     .HasColumnType("text")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_vietnamese_ci");
+
+                entity.Property(e => e.SalePrice)
+                    .HasColumnName("sale_price")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Warranty)
                     .HasColumnName("warranty")
