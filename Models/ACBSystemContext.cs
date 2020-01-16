@@ -74,7 +74,7 @@ namespace acb_app.Models
 
                 entity.Property(e => e.Inventory)
                     .HasColumnName("inventory")
-                    .HasColumnType("smallint(6)");
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Model)
                     .IsRequired()

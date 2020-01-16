@@ -10,7 +10,7 @@ namespace acb_app.Models
         public int OrderPrice { get; set; }
         public int SalePrice { get; set; }
         public string Model { get; set; }
-        public short Inventory { get; set; }
+        public int Inventory { get; set; }
         public int Warranty { get; set; }
         public DateTime ModifiedDate { get; set; }
     }
